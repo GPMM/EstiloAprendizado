@@ -1,6 +1,7 @@
 package br.com.rest.model.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity
+@Entity(name = "Turma")
+@Table(name = "TURMA")
 @XmlRootElement
 public class TurmaEntity {
 	
@@ -20,17 +23,26 @@ public class TurmaEntity {
 	@GeneratedValue
 	private Integer idTurma;
 	
-	@Column
+	@Column(unique=true)
 	private String codigo;
 	
 	@ManyToMany
-	@JoinTable(name = "idQuestionario",
-    joinColumns = @JoinColumn(name = "idTurma"), inverseJoinColumns = @JoinColumn(name = "idQuestionario"))
-	private List<QuestionarioEntity> questionarios;
+	@JoinTable(name = "REL_TURMA_QUESTIONARIO",
+    joinColumns = @JoinColumn(name = "fk_turma"), inverseJoinColumns = @JoinColumn(name = "fk_questionario"))
+	private Set<QuestionarioEntity> questionarios;
 	
 	@ManyToOne
-	@JoinColumn(name = "idProfessor")
+	@JoinColumn(name = "fk_professor")
 	private ProfessorEntity professor;
+	
+	@Column
+	private String disciplina;
+	
+	@ManyToMany
+	@JoinTable(name = "REL_TURMA_ALUNO",
+		joinColumns = { @JoinColumn(name = "fk_turma") },
+		inverseJoinColumns = { @JoinColumn(name = "fk_aluno") })
+	private List<AlunoEntity> alunos;
 
 	@Override
 	public int hashCode() {

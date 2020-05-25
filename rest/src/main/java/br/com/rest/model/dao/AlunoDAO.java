@@ -20,7 +20,7 @@ public class AlunoDAO extends GenericDAO<AlunoEntity>{
 	public AlunoEntity buscarByMatricula(String matricula) {
 		em.clear();
 		AlunoEntity aluno = (AlunoEntity) em.createQuery(
-					"Select a from AlunoEntity a Where a.matricula LIKE :matricula")
+					"Select a from Aluno a Where a.matricula LIKE :matricula")
 				.setParameter("matricula", matricula)
 				.getSingleResult();
 		
@@ -31,12 +31,13 @@ public class AlunoDAO extends GenericDAO<AlunoEntity>{
 	public AlunoEntity buscarByMatriculaSenha(String matricula, String senha) {
 		em.clear();
 		AlunoEntity aluno = (AlunoEntity) em.createQuery(
-					"SELECT a from AlunoEntity a WHERE a.matricula = :matricula AND a.senha = :senha")
+					"SELECT a from Aluno a WHERE a.matricula = :matricula AND a.senha = :senha")
 				.setParameter("matricula", matricula)
 				.setParameter("senha", senha)
 				.getSingleResult();
 		
 		return aluno;
 	}
+	
 
 }

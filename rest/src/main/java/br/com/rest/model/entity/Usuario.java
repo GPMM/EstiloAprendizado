@@ -23,7 +23,7 @@ public abstract class Usuario {
 	@Column
 	private String nome;
 
-	@Column
+	@Column(unique=true)
 	private String email;
 	
 	@Column

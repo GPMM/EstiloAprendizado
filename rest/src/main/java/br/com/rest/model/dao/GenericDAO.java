@@ -26,6 +26,11 @@ public class GenericDAO<T> {
 		return t1;
 	}
 	
+	public void excluirById(Integer id) {
+		T t1 = find(id);
+		excluir(t1);
+	}
+	
 	public void incluir(T entidade) {
 		em.persist(entidade);
 	}

@@ -1,45 +1,39 @@
 package br.com.rest.model.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity
+@Entity(name = "Aluno")
+@Table(name = "ALUNO")
 @XmlRootElement
 public class AlunoEntity extends Usuario{
 	
 	
-	@Column
+	@Column(unique=true)
 	private String matricula;
 
-	@Column
-	private String turma;
+	@ManyToMany(mappedBy="alunos")
+	private Set<TurmaEntity> turmas;
 
-	@Column
-	private Integer perfilAtivo;
-	
-	@Column
-	private Integer perfilReflexivo;
-	
-	@Column
-	private Integer perfilPragmatico;
-	
-	@Column
-	private Integer perfilTeorico;
-	
-
-
-	public void setTurma(String turma) {
-		this.turma = turma;
+	public void setTurmas(Set<TurmaEntity> turmas) {
+		this.turmas = turmas;
 	}
 	
-	public String getTurma() {
-		return turma;
+	public Set<TurmaEntity> getTurmas() {
+		return turmas;
 	}
 	
-
+	public void addTurma(TurmaEntity turma) {
+		if(turma != null) {
+			this.turmas.add(turma);
+		}
+	}
+	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -48,36 +42,35 @@ public class AlunoEntity extends Usuario{
 		this.matricula = matricula;
 	}
 
-	public Integer getPerfilAtivo() {
-		return perfilAtivo;
+	@Override
+	public String toString() {
+		return "AlunoEntity [matricula=" + matricula + ", turmas=" + turmas + ", id=" + getId() + ", cpf=" + getCpf() + ", nome=" + getNome()
+				+ ", email=" + getEmail() + ", idade=" + getIdade() + ", genero=" + getGenero()+"]";
 	}
 	
-	public void setPerfilAtivo(Integer perfilAtivo) {
-		this.perfilAtivo = perfilAtivo;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		return result;
 	}
-	
-	public Integer getPerfilReflexivo() {
-		return perfilReflexivo;
-	}
-	
-	public void setPerfilReflexivo(Integer perfilReflexivo) {
-		this.perfilReflexivo = perfilReflexivo;
-	}
-	
-	public Integer getPerfilPragmatico() {
-		return perfilPragmatico;
-	}
-	
-	public void setPerfilPragmatico(Integer perfilPragmatico) {
-		this.perfilPragmatico = perfilPragmatico;
-	}
-	
-	public Integer getPerfilTeorico() {
-		return perfilTeorico;
-	}
-	
-	public void setPerfilTeorico(Integer perfilTeorico) {
-		this.perfilTeorico = perfilTeorico;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProfessorEntity other = (ProfessorEntity) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		return true;
 	}
 
 
