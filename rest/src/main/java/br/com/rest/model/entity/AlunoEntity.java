@@ -1,10 +1,13 @@
 package br.com.rest.model.entity;
 
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -19,6 +22,9 @@ public class AlunoEntity extends Usuario{
 
 	@ManyToMany(mappedBy="alunos")
 	private Set<TurmaEntity> turmas;
+	
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
+	private List<AlunoQuestionarioPerfilEntity> questionariosPerfil;
 
 	public void setTurmas(Set<TurmaEntity> turmas) {
 		this.turmas = turmas;
@@ -40,6 +46,14 @@ public class AlunoEntity extends Usuario{
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+
+	public List<AlunoQuestionarioPerfilEntity> getQuestionariosPerfil() {
+		return questionariosPerfil;
+	}
+
+	public void setQuestionariosPerfil(List<AlunoQuestionarioPerfilEntity> questionariosPerfil) {
+		this.questionariosPerfil = questionariosPerfil;
 	}
 
 	@Override

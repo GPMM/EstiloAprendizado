@@ -1,8 +1,8 @@
 package br.com.rest.model.entity;
 
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,10 +26,10 @@ public class TurmaEntity {
 	@Column(unique=true)
 	private String codigo;
 	
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "REL_TURMA_QUESTIONARIO",
     joinColumns = @JoinColumn(name = "fk_turma"), inverseJoinColumns = @JoinColumn(name = "fk_questionario"))
-	private Set<QuestionarioEntity> questionarios;
+	private List<QuestionarioEntity> questionarios;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_professor")
@@ -43,6 +43,54 @@ public class TurmaEntity {
 		joinColumns = { @JoinColumn(name = "fk_turma") },
 		inverseJoinColumns = { @JoinColumn(name = "fk_aluno") })
 	private List<AlunoEntity> alunos;
+
+	public Integer getIdTurma() {
+		return idTurma;
+	}
+
+	public void setIdTurma(Integer idTurma) {
+		this.idTurma = idTurma;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public List<QuestionarioEntity> getQuestionarios() {
+		return questionarios;
+	}
+
+	public void setQuestionarios(List<QuestionarioEntity> questionarios) {
+		this.questionarios = questionarios;
+	}
+
+	public ProfessorEntity getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(ProfessorEntity professor) {
+		this.professor = professor;
+	}
+
+	public String getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(String disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public List<AlunoEntity> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<AlunoEntity> alunos) {
+		this.alunos = alunos;
+	}
 
 	@Override
 	public int hashCode() {

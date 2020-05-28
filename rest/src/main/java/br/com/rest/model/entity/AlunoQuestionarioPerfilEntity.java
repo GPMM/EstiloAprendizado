@@ -38,6 +38,54 @@ public class AlunoQuestionarioPerfilEntity {
 	@Column
 	private Integer perfilTeorico;
 	
+	public Integer getIdPerfil() {
+		return idPerfil;
+	}
+
+	public void setIdPerfil(Integer idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+
+	public AlunoEntity getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(AlunoEntity aluno) {
+		this.aluno = aluno;
+	}
+
+	public Integer getPerfilAtivo() {
+		return perfilAtivo;
+	}
+
+	public void setPerfilAtivo(Integer perfilAtivo) {
+		this.perfilAtivo = perfilAtivo;
+	}
+
+	public Integer getPerfilReflexivo() {
+		return perfilReflexivo;
+	}
+
+	public void setPerfilReflexivo(Integer perfilReflexivo) {
+		this.perfilReflexivo = perfilReflexivo;
+	}
+
+	public Integer getPerfilPragmatico() {
+		return perfilPragmatico;
+	}
+
+	public void setPerfilPragmatico(Integer perfilPragmatico) {
+		this.perfilPragmatico = perfilPragmatico;
+	}
+
+	public Integer getPerfilTeorico() {
+		return perfilTeorico;
+	}
+
+	public void setPerfilTeorico(Integer perfilTeorico) {
+		this.perfilTeorico = perfilTeorico;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

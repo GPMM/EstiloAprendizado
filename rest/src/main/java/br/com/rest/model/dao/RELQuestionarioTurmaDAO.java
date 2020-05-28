@@ -3,7 +3,6 @@ package br.com.rest.model.dao;
 import java.util.List;
 
 import br.com.rest.model.entity.QuestionarioEntity;
-import br.com.rest.model.entity.TurmaEntity;
 
 public class RELQuestionarioTurmaDAO extends GenericDAO<Object>{
 	

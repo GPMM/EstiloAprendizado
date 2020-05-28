@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "PROFESSOR")
 public class ProfessorEntity extends Usuario{
 	
-	@Column
+	@Column(unique=true)
 	private String siape;
 	
 	@OneToMany(mappedBy = "professor")
@@ -24,9 +24,15 @@ public class ProfessorEntity extends Usuario{
 
 	public void setSiape(String siape) {
 		this.siape = siape;
+	}	
+
+	public Set<TurmaEntity> getTurmas() {
+		return turmas;
 	}
 
-	
+	public void setTurmas(Set<TurmaEntity> turmas) {
+		this.turmas = turmas;
+	}
 
 	@Override
 	public int hashCode() {

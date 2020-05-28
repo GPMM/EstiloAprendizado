@@ -16,7 +16,7 @@ public class LoginApi {
 	@Path("inserir")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String inserirAluno(AlunoEntity aluno) {
-		return AlunoServices.incluirAluno(aluno).toString();
+				return AlunoServices.incluirAluno(aluno).toString();
 	}
 
 	@POST

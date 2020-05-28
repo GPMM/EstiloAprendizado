@@ -1,15 +1,20 @@
 package br.com.rest.model.entity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,23 +25,77 @@ public class QuestionarioEntity {
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer idQuestionario;
 	
 	@Column
 	private String nome;
 	
 	@ManyToMany(mappedBy="questionarios")
-	private Set<TurmaEntity> turmas;
+	private List<TurmaEntity> turmas;
+
+	@OneToMany(mappedBy = "questionario", cascade = CascadeType.ALL)
+	private List<QuestaoEntity> questoes;
 	
+	@OneToMany(mappedBy = "questionario", cascade = CascadeType.ALL)
+	private List<AlunoQuestionarioPerfilEntity> alunosPerfil;
+
+	@JoinTable(name="COL_VALOR_ALTERNATIVAS", joinColumns=@JoinColumn(name="idQuestionario"))
+	@MapKeyColumn (name="numeroAlternativa")
+	@Column(name="valorAlternativas")
 	@ElementCollection
-	private List<String> questoes;
+	private Map<Integer, String> valorAlternativas = new HashMap<Integer, String>();
 	
-	@ElementCollection
-	private Map<Integer, String> valorAlternativas;
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<TurmaEntity> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<TurmaEntity> turmas) {
+		this.turmas = turmas;
+	}
+
+	public List<QuestaoEntity> getQuestoes() {
+		return questoes;
+	}
+
+	public void setQuestoes(List<QuestaoEntity> questoes) {
+		this.questoes = questoes;
+	}
+
+	public Map<Integer, String> getValorAlternativas() {
+		return valorAlternativas;
+	}
+
+	public void setValorAlternativas(Map<Integer, String> valorAlternativas) {
+		this.valorAlternativas = valorAlternativas;
+	}
+
+	public void setIdQuestionario(Integer idQuestionario) {
+		this.idQuestionario = idQuestionario;
+	}
+	
+	public Integer getIdQuestionario() {
+		return idQuestionario;
+	}
+
+	public List<AlunoQuestionarioPerfilEntity> getAlunosPerfil() {
+		return alunosPerfil;
+	}
+
+	public void setAlunosPerfil(List<AlunoQuestionarioPerfilEntity> alunosPerfil) {
+		this.alunosPerfil = alunosPerfil;
+	}
 
 	@Override
 	public String toString() {
-		return "QuestionarioEntity [id=" + id + ", nome=" + nome + ", questoes=" + questoes + ", valorAlternativas=" + valorAlternativas
+		return "QuestionarioEntity [idQuestionario=" + idQuestionario + ", nome=" + nome + ", questoes=" + questoes + ", valorAlternativas=" + valorAlternativas
 				+ "]";
 	}
 
@@ -44,7 +103,7 @@ public class QuestionarioEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idQuestionario == null) ? 0 : idQuestionario.hashCode());
 		return result;
 	}
 
@@ -57,10 +116,10 @@ public class QuestionarioEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestionarioEntity other = (QuestionarioEntity) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (idQuestionario == null) {
+			if (other.idQuestionario != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!idQuestionario.equals(other.idQuestionario))
 			return false;
 		return true;
 	}
