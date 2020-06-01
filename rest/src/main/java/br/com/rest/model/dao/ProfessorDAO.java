@@ -20,7 +20,7 @@ public class ProfessorDAO extends GenericDAO<ProfessorEntity>{
 	public ProfessorEntity buscarBySiape(String siape) {
 		em.clear();
 		ProfessorEntity professor = (ProfessorEntity) em.createQuery(
-					"Select a from ProfessorEntity a Where a.siape = :siape")
+					"Select a from Professor a Where a.siape = :siape")
 				.setParameter("siape", siape)
 				.getSingleResult();
 		

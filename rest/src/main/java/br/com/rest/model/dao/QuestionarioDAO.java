@@ -23,9 +23,9 @@ public class QuestionarioDAO extends GenericDAO<QuestionarioEntity>{
 		em.clear();
 		List<QuestionarioEntity> questionarios = (List<QuestionarioEntity>) em.createQuery(
 					"select q " + 
-					"from Questionario q" + 
-					"join q.turmas t" + 
-					"where t.codigo = :turmaCodigo")
+					"from Questionario q " + 
+					"join q.turmas t " + 
+					"where t.codigo = :turmaCodigo ")
 				.setParameter("turmaCodigo", turmaCodigo)
 				.getResultList();
 		

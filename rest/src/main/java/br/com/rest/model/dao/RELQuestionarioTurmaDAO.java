@@ -24,11 +24,11 @@ public class RELQuestionarioTurmaDAO extends GenericDAO<Object>{
 		em.clear();
 		@SuppressWarnings("unchecked")
 		List<QuestionarioEntity> questionarios = (List<QuestionarioEntity>) em.createQuery(
-					"Select a from QuestionarioEntity a"
+					"Select a from Questionario a"
 					+ " inner join a.turmas t"
 					+ "  Where t.codigo LIKE :codigo")
 				.setParameter("codigo", codigo)
-				.getSingleResult();
+				.getResultList();
 		
 		return questionarios;
 				

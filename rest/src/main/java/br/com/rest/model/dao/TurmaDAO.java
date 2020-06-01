@@ -1,5 +1,7 @@
 package br.com.rest.model.dao;
 
+import java.util.List;
+
 import br.com.rest.model.entity.TurmaEntity;
 
 public class TurmaDAO extends GenericDAO<TurmaEntity>{
@@ -20,22 +22,23 @@ public class TurmaDAO extends GenericDAO<TurmaEntity>{
 	public TurmaEntity buscarByCodigo(String codigo) {
 		em.clear();
 		TurmaEntity turma = (TurmaEntity) em.createQuery(
-					"Select a from TurmaEntity a Where a.codigo LIKE :codigo")
-				.setParameter("matricula", codigo)
+					"Select a from Turma a Where a.codigo LIKE :codigo")
+				.setParameter("codigo", codigo)
 				.getSingleResult();
 		
 		return turma;
 				
 	}
 	
-	public TurmaEntity buscarByIdProfessor(Integer idProfessor) {
+	@SuppressWarnings("unchecked")
+	public List<TurmaEntity> buscarByIdProfessor(Integer idProfessor) {
 		em.clear();
-		TurmaEntity turma = (TurmaEntity) em.createQuery(
-					"SELECT a from TurmaEntity a WHERE a.professor = :idProfessor")
+		List<TurmaEntity> turmas = em.createQuery(
+					"SELECT a from Turma a WHERE a.professor.id = :idProfessor")
 				.setParameter("idProfessor", idProfessor)
-				.getSingleResult();
+				.getResultList();
 		
-		return turma;
+		return turmas;
 	}
 
 }
