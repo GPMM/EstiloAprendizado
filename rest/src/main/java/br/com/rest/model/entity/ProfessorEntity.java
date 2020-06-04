@@ -1,22 +1,27 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 @Entity(name = "Professor")
 @Table(name = "PROFESSOR")
-public class ProfessorEntity extends Usuario{
+@XmlRootElement
+public class ProfessorEntity extends Usuario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Column(unique=true)
 	private String siape;
-	
-	@OneToMany(mappedBy = "professor")
-	private Set<TurmaEntity> turmas; 
-	
 
 	public String getSiape() {
 		return siape;
@@ -25,14 +30,6 @@ public class ProfessorEntity extends Usuario{
 	public void setSiape(String siape) {
 		this.siape = siape;
 	}	
-
-	public Set<TurmaEntity> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(Set<TurmaEntity> turmas) {
-		this.turmas = turmas;
-	}
 
 	@Override
 	public int hashCode() {
@@ -57,12 +54,6 @@ public class ProfessorEntity extends Usuario{
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ProfessorEntity [siape=" + siape + ", turmas=" + turmas + ", id=" + getId() + ", cpf=" + getCpf() + ", nome=" + getNome()
-		+ ", email=" + getEmail() + ", idade=" + getIdade() + ", genero=" + getGenero()+"]";
 	}
 
 }

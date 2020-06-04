@@ -1,6 +1,8 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +19,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "Turma")
 @Table(name = "TURMA")
 @XmlRootElement
-public class TurmaEntity {
+public class TurmaEntity  implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
@@ -29,7 +36,7 @@ public class TurmaEntity {
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "REL_TURMA_QUESTIONARIO",
     joinColumns = @JoinColumn(name = "fk_turma"), inverseJoinColumns = @JoinColumn(name = "fk_questionario"))
-	private List<QuestionarioEntity> questionarios;
+	private Set<QuestionarioEntity> questionarios;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_professor")
@@ -60,11 +67,11 @@ public class TurmaEntity {
 		this.codigo = codigo;
 	}
 
-	public List<QuestionarioEntity> getQuestionarios() {
+	public Set<QuestionarioEntity> getQuestionarios() {
 		return questionarios;
 	}
 
-	public void setQuestionarios(List<QuestionarioEntity> questionarios) {
+	public void setQuestionarios(Set<QuestionarioEntity> questionarios) {
 		this.questionarios = questionarios;
 	}
 
@@ -116,11 +123,5 @@ public class TurmaEntity {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "TurmaEntity [idTurma=" + idTurma + ", codigo=" + codigo + ", professor=" + professor + "]";
-	}
-
 
 }

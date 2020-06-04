@@ -1,5 +1,6 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -14,31 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "Aluno")
 @Table(name = "ALUNO")
 @XmlRootElement
-public class AlunoEntity extends Usuario{
+public class AlunoEntity extends Usuario implements Serializable{
 	
 	
+	private static final long serialVersionUID = 1L;
+
 	@Column(unique=true)
 	private String matricula;
-
-	@ManyToMany(mappedBy="alunos")
-	private Set<TurmaEntity> turmas;
-	
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
-	private List<AlunoQuestionarioPerfilEntity> questionariosPerfil;
-
-	public void setTurmas(Set<TurmaEntity> turmas) {
-		this.turmas = turmas;
-	}
-	
-	public Set<TurmaEntity> getTurmas() {
-		return turmas;
-	}
-	
-	public void addTurma(TurmaEntity turma) {
-		if(turma != null) {
-			this.turmas.add(turma);
-		}
-	}
 	
 	public String getMatricula() {
 		return matricula;
@@ -48,17 +31,9 @@ public class AlunoEntity extends Usuario{
 		this.matricula = matricula;
 	}
 
-	public List<AlunoQuestionarioPerfilEntity> getQuestionariosPerfil() {
-		return questionariosPerfil;
-	}
-
-	public void setQuestionariosPerfil(List<AlunoQuestionarioPerfilEntity> questionariosPerfil) {
-		this.questionariosPerfil = questionariosPerfil;
-	}
-
 	@Override
 	public String toString() {
-		return "AlunoEntity [matricula=" + matricula + ", turmas=" + turmas + ", id=" + getId() + ", cpf=" + getCpf() + ", nome=" + getNome()
+		return "AlunoEntity [matricula=" + matricula + ", id=" + getId() + ", cpf=" + getCpf() + ", nome=" + getNome()
 				+ ", email=" + getEmail() + ", idade=" + getIdade() + ", genero=" + getGenero()+"]";
 	}
 	

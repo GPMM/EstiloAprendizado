@@ -9,18 +9,18 @@ import br.com.rest.model.dto.LoginDTO;
 import br.com.rest.model.entity.AlunoEntity;
 import br.com.rest.services.AlunoServices;
 
-@Path("/login")
-public class LoginApi {
+@Path("/aluno")
+public class AlunoApi {
 
 	@POST
-	@Path("inserir")
+	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String inserirAluno(AlunoEntity aluno) {
 		return AlunoServices.incluirAluno(aluno).toString();
 	}
 
 	@POST
-	@Path("")
+	@Path("login")
 	@Produces(MediaType.APPLICATION_JSON)
 	public AlunoEntity realizarLoginPorMatriculaSenha(LoginDTO login) {
 		return AlunoServices.consultarAlunoPorMatriculaSenha(login.getMatricula(), login.getSenha());

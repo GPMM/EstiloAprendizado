@@ -1,5 +1,7 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +14,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "AlunoQuestionarioPerfil")
 @Table(name = "REL_ALUNO_QUESTIONARIO")
 @XmlRootElement
-public class AlunoQuestionarioPerfilEntity {
+public class AlunoQuestionarioPerfilEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private Integer idPerfil;

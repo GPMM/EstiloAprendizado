@@ -1,5 +1,7 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +18,12 @@ import br.com.rest.model.enumentity.TiposPerfilEnum;
 @Entity(name = "Questao")
 @Table(name = "QUESTAO")
 @XmlRootElement
-public class QuestaoEntity {
+public class QuestaoEntity  implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
@@ -28,20 +35,6 @@ public class QuestaoEntity {
 	@Enumerated(EnumType.STRING)
 	private TiposPerfilEnum tipoPerfil;
 	
-	@ManyToOne
-	@JoinColumn(name = "fk_questionario", nullable = false)
-	private QuestionarioEntity questionario;
-	
-	public QuestaoEntity() {
-		
-	}
-	
-	public QuestaoEntity(String texto, TiposPerfilEnum tipoPerfil, QuestionarioEntity questionario) {
-		this.texto = texto;
-		this.tipoPerfil = tipoPerfil;
-		this.questionario = questionario;
-	}
-
 	public Integer getIdQuestao() {
 		return idQuestao;
 	}
@@ -64,14 +57,6 @@ public class QuestaoEntity {
 
 	public void setTipoPerfil(TiposPerfilEnum tipoPerfil) {
 		this.tipoPerfil = tipoPerfil;
-	}
-
-	public QuestionarioEntity getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(QuestionarioEntity questionario) {
-		this.questionario = questionario;
 	}
 
 	@Override

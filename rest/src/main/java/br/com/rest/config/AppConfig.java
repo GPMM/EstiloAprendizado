@@ -1,23 +1,45 @@
 package br.com.rest.config;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import br.com.rest.api.LoginApi;
-import br.com.rest.api.MonitoracaoApi;
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
-@ApplicationPath("v1")
+@ApplicationPath("")
 public class AppConfig extends Application{
 
 	private Set<Class<?>> resources = new HashSet<Class<?>>();
 	
+	@SuppressWarnings("unchecked")
 	public AppConfig() {
+		
+		List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
+		classLoadersList.add(ClasspathHelper.contextClassLoader());
+		classLoadersList.add(ClasspathHelper.staticClassLoader());
+		
+		Reflections reflections = new Reflections(new ConfigurationBuilder()
+			    .setScanners(new SubTypesScanner(false), new ResourcesScanner())
+			    .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
+			    .filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("br.com.rest.api"))));
+
+		Set<Class<? extends Object>> allClasses = 
+		     reflections.getSubTypesOf(Object.class);
+		 
+		for(Object o : allClasses) {
+			resources.add((Class<Object>) o);
+		}
+		
 		System.out.println("AppConfig Criado!");
-		resources.add(LoginApi.class);
-		resources.add(MonitoracaoApi.class);
 	}
 	
 	@Override

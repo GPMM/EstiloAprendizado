@@ -1,5 +1,6 @@
 package br.com.rest.model.entity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "Questionario")
 @Table(name = "QUESTIONARIO")
 @XmlRootElement
-public class QuestionarioEntity {
+public class QuestionarioEntity  implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
@@ -29,15 +35,10 @@ public class QuestionarioEntity {
 	
 	@Column
 	private String nome;
-	
-	@ManyToMany(mappedBy="questionarios")
-	private List<TurmaEntity> turmas;
 
-	@OneToMany(mappedBy = "questionario", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_questao")
 	private List<QuestaoEntity> questoes;
-	
-	@OneToMany(mappedBy = "questionario", cascade = CascadeType.ALL)
-	private List<AlunoQuestionarioPerfilEntity> alunosPerfil;
 
 	@JoinTable(name="COL_VALOR_ALTERNATIVAS", joinColumns=@JoinColumn(name="idQuestionario"))
 	@MapKeyColumn (name="numeroAlternativa")
@@ -51,14 +52,6 @@ public class QuestionarioEntity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<TurmaEntity> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(List<TurmaEntity> turmas) {
-		this.turmas = turmas;
 	}
 
 	public List<QuestaoEntity> getQuestoes() {
@@ -83,14 +76,6 @@ public class QuestionarioEntity {
 	
 	public Integer getIdQuestionario() {
 		return idQuestionario;
-	}
-
-	public List<AlunoQuestionarioPerfilEntity> getAlunosPerfil() {
-		return alunosPerfil;
-	}
-
-	public void setAlunosPerfil(List<AlunoQuestionarioPerfilEntity> alunosPerfil) {
-		this.alunosPerfil = alunosPerfil;
 	}
 
 	@Override
