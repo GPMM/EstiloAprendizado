@@ -8,8 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -19,15 +17,12 @@ import br.com.rest.model.enumentity.TiposPerfilEnum;
 @Table(name = "QUESTAO")
 @XmlRootElement
 public class QuestaoEntity  implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 9171755514777773987L;
+
 	@Id
 	@GeneratedValue
-	private Integer idQuestao;
+	private Long idQuestao;
 	
 	@Column
 	private String texto;
@@ -35,11 +30,11 @@ public class QuestaoEntity  implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TiposPerfilEnum tipoPerfil;
 	
-	public Integer getIdQuestao() {
+	public Long getIdQuestao() {
 		return idQuestao;
 	}
 
-	public void setIdQuestao(Integer idQuestao) {
+	public void setIdQuestao(Long idQuestao) {
 		this.idQuestao = idQuestao;
 	}
 

@@ -20,15 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TURMA")
 @XmlRootElement
 public class TurmaEntity  implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 6875426200939558888L;
+
 	@Id
 	@GeneratedValue
-	private Integer idTurma;
+	private Long idTurma;
 	
 	@Column(unique=true)
 	private String codigo;
@@ -51,11 +48,11 @@ public class TurmaEntity  implements Serializable {
 		inverseJoinColumns = { @JoinColumn(name = "fk_aluno") })
 	private List<AlunoEntity> alunos;
 
-	public Integer getIdTurma() {
+	public Long getIdTurma() {
 		return idTurma;
 	}
 
-	public void setIdTurma(Integer idTurma) {
+	public void setIdTurma(Long idTurma) {
 		this.idTurma = idTurma;
 	}
 

@@ -15,15 +15,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "REL_ALUNO_QUESTIONARIO")
 @XmlRootElement
 public class AlunoQuestionarioPerfilEntity implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 2241828347376645004L;
 
 	@Id
 	@GeneratedValue
-	private Integer idPerfil;
+	private Long idPerfil;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_aluno")
@@ -45,11 +42,11 @@ public class AlunoQuestionarioPerfilEntity implements Serializable {
 	@Column
 	private Integer perfilTeorico;
 	
-	public Integer getIdPerfil() {
+	public Long getIdPerfil() {
 		return idPerfil;
 	}
 
-	public void setIdPerfil(Integer idPerfil) {
+	public void setIdPerfil(Long idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 

@@ -23,21 +23,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "QUESTIONARIO")
 @XmlRootElement
 public class QuestionarioEntity  implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = -3786491879878344497L;
+
 	@Id
 	@GeneratedValue
-	private Integer idQuestionario;
+	private Long idQuestionario;
 	
 	@Column
 	private String nome;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_questao")
+	@JoinColumn(name = "fk_questionario")
 	private List<QuestaoEntity> questoes;
 
 	@JoinTable(name="COL_VALOR_ALTERNATIVAS", joinColumns=@JoinColumn(name="idQuestionario"))
@@ -45,6 +42,10 @@ public class QuestionarioEntity  implements Serializable {
 	@Column(name="valorAlternativas")
 	@ElementCollection
 	private Map<Integer, String> valorAlternativas = new HashMap<Integer, String>();
+	
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "fk_questionario")
+	private List<InformacaoPerfilEntity> informacoesPerfis;
 	
 	public String getNome() {
 		return nome;
@@ -70,12 +71,20 @@ public class QuestionarioEntity  implements Serializable {
 		this.valorAlternativas = valorAlternativas;
 	}
 
-	public void setIdQuestionario(Integer idQuestionario) {
+	public void setIdQuestionario(Long idQuestionario) {
 		this.idQuestionario = idQuestionario;
 	}
 	
-	public Integer getIdQuestionario() {
+	public Long getIdQuestionario() {
 		return idQuestionario;
+	}
+
+	public List<InformacaoPerfilEntity> getInformacoesPerfis() {
+		return informacoesPerfis;
+	}
+
+	public void setInformacoesPerfis(List<InformacaoPerfilEntity> informacoesPerfis) {
+		this.informacoesPerfis = informacoesPerfis;
 	}
 
 	@Override

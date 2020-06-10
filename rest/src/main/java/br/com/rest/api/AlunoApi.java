@@ -5,8 +5,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import br.com.rest.model.dao.QuestionarioDAO;
 import br.com.rest.model.dto.LoginDTO;
 import br.com.rest.model.entity.AlunoEntity;
+import br.com.rest.model.entity.QuestionarioEntity;
 import br.com.rest.services.AlunoServices;
 
 @Path("/aluno")

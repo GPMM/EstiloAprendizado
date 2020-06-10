@@ -16,15 +16,12 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso({ProfessorEntity.class, AlunoEntity.class})
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario  implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 8008176475151529941L;
+
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Long id;
 	
 	@Column
 	private String cpf;
@@ -44,12 +41,12 @@ public abstract class Usuario  implements Serializable {
 	@Column
 	private String senha;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

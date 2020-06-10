@@ -21,12 +21,12 @@ public class GenericDAO<T> {
 		return lista;
 	}
 	
-	public T find(Integer id){
+	public T find(Long id){
 		T t1 = em.find(t, id);
 		return t1;
 	}
 	
-	public void excluirById(Integer id) {
+	public void excluirById(Long id) {
 		T t1 = find(id);
 		excluir(t1);
 	}

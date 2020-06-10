@@ -1,25 +1,19 @@
 package br.com.rest.model.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 
 @Entity(name = "Professor")
 @Table(name = "PROFESSOR")
 @XmlRootElement
 public class ProfessorEntity extends Usuario implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1063428398288663959L;
+
 	@Column(unique=true)
 	private String siape;
 

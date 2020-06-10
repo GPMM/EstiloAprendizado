@@ -1,14 +1,9 @@
 package br.com.rest.model.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,8 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class AlunoEntity extends Usuario implements Serializable{
 	
-	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8372293493127957905L;
 
 	@Column(unique=true)
 	private String matricula;
