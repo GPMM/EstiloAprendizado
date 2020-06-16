@@ -1,16 +1,12 @@
 /.metadata/
 /.recommenders/
-/Eclipse/
 /.gradle/
 /.project/
 /rest/target/
 package-lock*
-/platforms/
-/app/
-/node_modules/
 webpack.config.js
 .project
 .idea/
 .classpath
 
-node_modules
+
