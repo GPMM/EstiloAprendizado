@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "AlunoQuestionarioPerfil")
 @Table(name = "REL_ALUNO_QUESTIONARIO")
 @XmlRootElement
-public class AlunoQuestionarioPerfilEntity implements Serializable {
+public class EstiloAlunoEntity implements Serializable {
 
 	private static final long serialVersionUID = 2241828347376645004L;
 
@@ -106,7 +106,7 @@ public class AlunoQuestionarioPerfilEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AlunoQuestionarioPerfilEntity other = (AlunoQuestionarioPerfilEntity) obj;
+		EstiloAlunoEntity other = (EstiloAlunoEntity) obj;
 		if (idPerfil == null) {
 			if (other.idPerfil != null)
 				return false;
