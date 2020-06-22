@@ -1,5 +1,9 @@
 package br.com.rest.model.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,33 +25,32 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		}
 		return instance;
 	}
-	/*
-	public EstiloAlunoEntity dynamicQuery(String matricula) {
+	
+	public List<EstiloAlunoEntity> dynamicQueryFiltro(String matricula, Date startDate, Date endDate, String nivel, String turma) {
 		em.clear();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
+		
 		CriteriaQuery<EstiloAlunoEntity> query = cb.createQuery(EstiloAlunoEntity.class);
-		Root<EstiloAlunoEntity> estiloAluno = query.from(EstiloAlunoEntity.class);
-		query.select(estiloAluno)
-			.where(cb.gt(estiloAluno.get(EstiloAlunoEntity_.), 3000d));
-		TypedQuery<Employee> typedQuery = em.createQuery(query);
-		typedQuery.getResultList()
-            .forEach(System.out::println);
-  em.close();
+		Root<EstiloAlunoEntity> root = query.from(EstiloAlunoEntity.class);
 		
-		return estiloEstiloAluno;
-	}
-	 */
-	
-	public EstiloAlunoEntity buscarByMatriculaSenha(String matricula, String senha) {
-		em.clear();
-		EstiloAlunoEntity estiloEstiloAluno = (EstiloAlunoEntity) em.createQuery(
-					"SELECT a from EstiloEstiloAluno a WHERE a.matricula = :matricula AND a.senha = :senha")
-				.setParameter("matricula", matricula)
-				.setParameter("senha", senha)
-				.getSingleResult();
+		query.select(root);
+		if(matricula != null) {
+			query.where(cb.equal(root.get("aluno").get("matricula"), matricula));
+		} else {
+			
+		}
 		
-		return estiloEstiloAluno;
+		TypedQuery<EstiloAlunoEntity> typedQuery = em.createQuery(query);
+		List<EstiloAlunoEntity> retorno = new ArrayList<EstiloAlunoEntity>();
+		if(matricula != null) {
+			retorno.add(typedQuery.getSingleResult());
+		} else {
+			retorno = typedQuery.getResultList();
+		}
+		
+		em.close();
+		
+		return retorno;
 	}
-	
-
+	 
 }

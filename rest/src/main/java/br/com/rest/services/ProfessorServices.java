@@ -1,13 +1,9 @@
 package br.com.rest.services;
 
-import java.util.List;
-
 import javax.persistence.NoResultException;
 
-import org.apache.logging.log4j.core.Logger;
-
-import br.com.rest.model.dao.ProfessorDAO;
 import br.com.rest.model.dao.PersistenceManager;
+import br.com.rest.model.dao.ProfessorDAO;
 import br.com.rest.model.entity.ProfessorEntity;
 
 public class ProfessorServices {

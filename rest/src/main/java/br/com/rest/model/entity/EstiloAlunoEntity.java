@@ -117,7 +117,7 @@ public class EstiloAlunoEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AlunoQuestionarioEntity [idPerfil=" + idPerfil + ", aluno=" + aluno + ", questionario=" + questionario
+		return "EstiloAlunoEntity [idPerfil=" + idPerfil + ", aluno=" + aluno.getId() + ", questionario=" + questionario.getIdQuestionario()
 				+ ", perfilAtivo=" + perfilAtivo + ", perfilReflexivo=" + perfilReflexivo + ", perfilPragmatico="
 				+ perfilPragmatico + ", perfilTeorico=" + perfilTeorico + "]";
 	}
