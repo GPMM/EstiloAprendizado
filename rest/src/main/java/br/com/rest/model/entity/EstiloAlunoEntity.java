@@ -1,6 +1,7 @@
 package br.com.rest.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,7 +31,7 @@ public class EstiloAlunoEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "fk_questionario")
 	private QuestionarioEntity questionario;
-	
+
 	@Column
 	private Integer perfilAtivo;
 	
@@ -42,6 +44,25 @@ public class EstiloAlunoEntity implements Serializable {
 	@Column
 	private Integer perfilTeorico;
 	
+	@Column
+	private Date dataRealizado;
+	
+	public QuestionarioEntity getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(QuestionarioEntity questionario) {
+		this.questionario = questionario;
+	}
+
+	public Date getDataRealizado() {
+		return dataRealizado;
+	}
+
+	public void setDataRealizado(Date dataRealizado) {
+		this.dataRealizado = dataRealizado;
+	}
+
 	public Long getIdPerfil() {
 		return idPerfil;
 	}
@@ -119,7 +140,7 @@ public class EstiloAlunoEntity implements Serializable {
 	public String toString() {
 		return "EstiloAlunoEntity [idPerfil=" + idPerfil + ", aluno=" + aluno.getId() + ", questionario=" + questionario.getIdQuestionario()
 				+ ", perfilAtivo=" + perfilAtivo + ", perfilReflexivo=" + perfilReflexivo + ", perfilPragmatico="
-				+ perfilPragmatico + ", perfilTeorico=" + perfilTeorico + "]";
+				+ perfilPragmatico + ", perfilTeorico=" + perfilTeorico + ", dataRealizado=" + dataRealizado +  "]";
 	}
 
 }

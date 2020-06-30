@@ -27,16 +27,7 @@ public class FiltroProfessorApi {
 			  					  @QueryParam(value = "endDate") String endDate,
 								  @QueryParam(value = "nivel") String nivel, 
 								  @QueryParam(value = "turma") String turma) {
-		List<EstiloAlunoEntity> resumoEstilos = EstiloAlunoServices.consultar(matricula, new Date(), new Date(), nivel, turma);
+		List<EstiloAlunoEntity> resumoEstilos = EstiloAlunoServices.consultar(matricula,null, null, nivel, turma);
 		return resumoEstilos;
 	}
-	
-
-	@POST
-	@Path("login")
-	@Produces(MediaType.APPLICATION_JSON)
-	public AlunoEntity realizarLoginPorMatriculaSenha(LoginDTO login) {
-		return AlunoServices.consultarAlunoPorMatriculaSenha(login.getMatricula(), login.getSenha());
-	}
-
 }
