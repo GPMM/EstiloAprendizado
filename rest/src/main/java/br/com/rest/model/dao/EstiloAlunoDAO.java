@@ -1,13 +1,13 @@
 package br.com.rest.model.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -36,7 +36,7 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		return instance;
 	}
 	
-	public List<EstiloAlunoEntity> dynamicQueryFiltro(String matricula, Date startDate, Date endDate, String nivel, String turma) {
+	public Set<EstiloAlunoEntity> dynamicQueryFiltro(String matricula, Date startDate, Date endDate, String nivel, String turma) {
 		em.clear();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
@@ -45,7 +45,7 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		Root<GrupoAluno> rootGrupo = query.from(GrupoAluno.class);
 		//if Turna != null, colocar um where idTurma do questionario = id turma
 		
-		query.select(rootEstilo);
+		query.select(rootEstilo).distinct(true);;
 		
 		Predicate pred = cb.and();
 		
@@ -80,11 +80,11 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		}
 		
 		TypedQuery<EstiloAlunoEntity> typedQuery = em.createQuery(query);
-		List<EstiloAlunoEntity> retorno = new ArrayList<EstiloAlunoEntity>();
+		Set<EstiloAlunoEntity> retorno = new HashSet<EstiloAlunoEntity>();
 		if(matricula != null) {
 			retorno.add(typedQuery.getSingleResult());
 		} else {
-			retorno = typedQuery.getResultList();
+			retorno.addAll(typedQuery.getResultList());
 		}
 		
 	
