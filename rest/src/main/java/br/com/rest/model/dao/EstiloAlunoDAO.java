@@ -36,7 +36,7 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		return instance;
 	}
 	
-	public Set<EstiloAlunoEntity> dynamicQueryFiltro(String matricula, Date startDate, Date endDate, String nivel, String turma) {
+	public Set<EstiloAlunoEntity> dynamicQueryFiltro(Long idQuestionario, String matricula, Date startDate, Date endDate, String nivel, String turma) {
 		em.clear();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
@@ -45,15 +45,17 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		Root<GrupoAluno> rootGrupo = query.from(GrupoAluno.class);
 		//if Turna != null, colocar um where idTurma do questionario = id turma
 		
-		query.select(rootEstilo).distinct(true);;
+		query.select(rootEstilo).distinct(true);
 		
 		Predicate pred = cb.and();
 		
+		pred = cb.equal(rootEstilo.get(EstiloAlunoEntity_.QUESTIONARIO).get(QuestionarioEntity_.ID_QUESTIONARIO), idQuestionario);
+		
 		if(matricula != null) {
-			query.where(cb.equal(rootEstilo.get(EstiloAlunoEntity_.ALUNO).get(AlunoEntity_.MATRICULA), matricula));
+			pred = cb.and(cb.equal(rootEstilo.get(EstiloAlunoEntity_.ALUNO).get(AlunoEntity_.MATRICULA), matricula));
 		} else {
 			if(startDate != null && endDate != null){
-				pred = cb.and(cb.between(rootEstilo.get(EstiloAlunoEntity_.DATA_REALIZADO), startDate, endDate));
+				pred = cb.and(pred, cb.between(rootEstilo.get(EstiloAlunoEntity_.DATA_REALIZADO), startDate, endDate));
 			} else if(startDate != null && endDate == null) {
 				pred = cb.and(cb.greaterThan(rootEstilo.get(EstiloAlunoEntity_.DATA_REALIZADO), startDate));
 			} else if(startDate == null && endDate != null) {
@@ -74,10 +76,8 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 						rootGrupo.join(TurmaEntity_.QUESTIONARIOS).get(QuestionarioEntity_.ID_QUESTIONARIO)));
 				pred = cb.and(pred, cb.equal(rootGrupo.get(GrupoAluno_.ID), idTurma));
 			}
-			
-			query.where(pred);
-			
 		}
+		query.where(pred);
 		
 		TypedQuery<EstiloAlunoEntity> typedQuery = em.createQuery(query);
 		Set<EstiloAlunoEntity> retorno = new HashSet<EstiloAlunoEntity>();

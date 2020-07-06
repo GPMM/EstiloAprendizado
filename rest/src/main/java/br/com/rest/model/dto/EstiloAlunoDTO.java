@@ -1,8 +1,11 @@
 package br.com.rest.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import br.com.rest.model.entity.InformacaoPerfilEntity;
 
 @XmlRootElement
 public class EstiloAlunoDTO {
@@ -18,6 +21,7 @@ public class EstiloAlunoDTO {
 	private Date dataRealizado;
 	private String nomeQuestionario;
 	private Long idQuestionario;
+	private List<InformacaoPerfilEntity> infoPerfis;
 
 	public Long getIdPerfil() {
 		return idPerfil;
@@ -106,6 +110,15 @@ public class EstiloAlunoDTO {
 	public void setIdQuestionario(Long idQuestionario) {
 		this.idQuestionario = idQuestionario;
 	}
+	
+	public List<InformacaoPerfilEntity> getInfoPerfis() {
+		return infoPerfis;
+	}
+
+	public void setInfoPerfis(List<InformacaoPerfilEntity> infoPerfis) {
+		this.infoPerfis = infoPerfis;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -138,7 +151,6 @@ public class EstiloAlunoDTO {
 				+ nomeAluno + ", idAluno=" + idAluno + ", perfilAtivo=" + perfilAtivo + ", perfilReflexivo="
 				+ perfilReflexivo + ", perfilPragmatico=" + perfilPragmatico + ", perfilTeorico=" + perfilTeorico
 				+ ", dataRealizado=" + dataRealizado + ", nomeQuestionario=" + nomeQuestionario + ", idQuestionario="
-				+ idQuestionario + "]";
+				+ idQuestionario + ", infoPerfis=" + infoPerfis + "]";
 	}
-
 }
