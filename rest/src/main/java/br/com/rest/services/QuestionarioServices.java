@@ -2,7 +2,6 @@ package br.com.rest.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.ws.rs.WebApplicationException;
@@ -12,7 +11,10 @@ import br.com.rest.model.dao.AlunoDAO;
 import br.com.rest.model.dao.GrupoAlunoDAO;
 import br.com.rest.model.dao.PersistenceManager;
 import br.com.rest.model.dao.QuestionarioDAO;
+import br.com.rest.model.dto.QuestionarioDTO;
 import br.com.rest.model.entity.AlunoEntity;
+import br.com.rest.model.entity.InformacaoPerfilEntity;
+import br.com.rest.model.entity.QuestaoEntity;
 import br.com.rest.model.entity.QuestionarioEntity;
 
 public class QuestionarioServices {
@@ -22,10 +24,11 @@ public class QuestionarioServices {
 	private static AlunoDAO alunoDao = AlunoDAO.getInstance();
 	
 	
-	public static Boolean incluirQuestionario(QuestionarioEntity questionario) {
+	public static Boolean incluirQuestionario(QuestionarioDTO questionario) {
 		QuestionarioEntity questionarioBanco = null;
+		
 		try {
-			 questionarioBanco = questionarioDao.find(questionario.getIdQuestionario());
+			 questionarioBanco = questionarioDao.findByNome(questionario.getNome());
 		} catch (NoResultException e) {
 			System.out.println("Questionario não encontrado no banco, pode ser incluido");
 		
@@ -37,10 +40,13 @@ public class QuestionarioServices {
 			PersistenceManager.getTransaction().begin();
 			
 			try{
-				questionarioDao.incluir(questionario);	
+				QuestionarioEntity quest = new QuestionarioEntity();
+				questionarioDtoToEntity(questionario, quest);
+				questionarioDao.incluir(quest);	
 				PersistenceManager.getTransaction().commit();
 				return true;
 			}catch(Exception e){
+				e.printStackTrace();
 				PersistenceManager.getTransaction().rollback();
 				return false;
 			}
@@ -70,5 +76,33 @@ public class QuestionarioServices {
 				    );
 		}
 		return questionariosBanco;
+	}
+	
+	public static QuestionarioEntity questionarioDtoToEntity(QuestionarioDTO quest, QuestionarioEntity questEntity) {
+		if(quest.getInformacoesPerfis() != null && quest.getInformacoesPerfis().size() > 0) {
+			for(InformacaoPerfilEntity info: quest.getInformacoesPerfis()) {
+				InformacaoPerfilEntity infoEntity = new InformacaoPerfilEntity();
+				infoEntity.setCaracteristicas(info.getCaracteristicas());
+				infoEntity.setSugestoes(info.getSugestoes());
+				infoEntity.setTipoPerfil(info.getTipoPerfil());
+				questEntity.addInformacoesPerfis(infoEntity);
+			}
+		}		
+		if(quest.getQuestoes() != null && quest.getQuestoes().size() > 0) {
+			for(QuestaoEntity questao: quest.getQuestoes()) {
+				QuestaoEntity questaoEntity = new QuestaoEntity();
+				questaoEntity.setTexto(questao.getTexto());
+				questaoEntity.setTipoPerfil(questao.getTipoPerfil());
+				questEntity.addQuestao(questaoEntity);
+			}
+		}
+		if(quest.getValorAlternativas() != null && quest.getValorAlternativas().size() > 0) {
+			for(Integer key: quest.getValorAlternativas().keySet()) {
+				questEntity.addValorAlternativas(key, quest.getValorAlternativas().get(key));				
+			}
+		}
+		questEntity.setNome(quest.getNome());
+		
+		return questEntity;		
 	}
 }

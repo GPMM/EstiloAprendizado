@@ -1,6 +1,7 @@
 package br.com.rest.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +30,12 @@ public class QuestionarioEntity  implements Serializable {
 	@GeneratedValue
 	private Long idQuestionario;
 	
-	@Column
+	@Column(unique=true)
 	private String nome;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_questionario")
-	private List<QuestaoEntity> questoes;
+	private List<QuestaoEntity> questoes = new ArrayList<QuestaoEntity>();
 
 	@JoinTable(name="COL_VALOR_ALTERNATIVAS", joinColumns=@JoinColumn(name="idQuestionario"))
 	@MapKeyColumn (name="numeroAlternativa")
@@ -44,7 +45,7 @@ public class QuestionarioEntity  implements Serializable {
 	
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "fk_questionario")
-	private List<InformacaoPerfilEntity> informacoesPerfis;
+	private List<InformacaoPerfilEntity> informacoesPerfis = new ArrayList<InformacaoPerfilEntity>();
 	
 	public String getNome() {
 		return nome;
@@ -84,6 +85,18 @@ public class QuestionarioEntity  implements Serializable {
 
 	public void setInformacoesPerfis(List<InformacaoPerfilEntity> informacoesPerfis) {
 		this.informacoesPerfis = informacoesPerfis;
+	}
+	
+	public void addInformacoesPerfis(InformacaoPerfilEntity informacoesPerfil) {
+		this.informacoesPerfis.add(informacoesPerfil);
+	}	
+	
+	public void addQuestao(QuestaoEntity questao) {
+		this.questoes.add(questao);
+	}	
+	
+	public void addValorAlternativas(Integer key, String value) {
+		this.valorAlternativas.put(key, value);
 	}
 
 	@Override

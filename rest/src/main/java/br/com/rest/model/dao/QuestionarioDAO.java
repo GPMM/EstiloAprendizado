@@ -17,4 +17,15 @@ public class QuestionarioDAO extends GenericDAO<QuestionarioEntity>{
 		return instance;
 	}
 
+	public QuestionarioEntity findByNome(String nome) {
+		em.clear();
+		QuestionarioEntity quest = (QuestionarioEntity) em.createQuery(
+					"Select a from Questionario a Where UPPER(a.nome) = :nome")
+				.setParameter("nome", nome.toUpperCase())
+				.getSingleResult();
+		
+		return quest;
+				
+	}
+
 }
