@@ -19,10 +19,7 @@ import React, { Component } from "react";
 import {
   Grid,
   Row,
-  Col,
-  FormGroup,
-  ControlLabel,
-  FormControl
+  Col
 } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
@@ -40,29 +37,26 @@ class UserProfile extends Component {
           <Row>
             <Col md={8}>
               <Card
-                title="Edit Profile"
+                title="Cadastro de docente"
                 content={
                   <form>
                     <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
                       properties={[
                         {
-                          label: "Company (disabled)",
-                          type: "text",
+                          label: "Matrícula",
+                          type: "email",
                           bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
-                          disabled: true
+                          placeholder: "Matrícula"
                         },
                         {
-                          label: "Username",
+                          label: "Nome",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: "michael23"
+                          placeholder: "Nome" 
                         },
                         {
-                          label: "Email address",
+                          label: "Email",
                           type: "email",
                           bsClass: "form-control",
                           placeholder: "Email"
@@ -73,76 +67,38 @@ class UserProfile extends Component {
                       ncols={["col-md-6", "col-md-6"]}
                       properties={[
                         {
-                          label: "First name",
+                          label: "Cidade",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: "Mike"
+                          placeholder: "Cidade"
                         },
                         {
-                          label: "Last name",
+                          label: "Estado",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: "Andrew"
-                        }
+                          placeholder: "Estado"
+                        }                       
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-12"]}
+                      ncols={["col-md-6", "col-md-6"]}
                       properties={[
                         {
-                          label: "Adress",
+                          label: "Senha",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue:
-                            "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "City",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike"
+                          placeholder: "Senha"
                         },
                         {
-                          label: "Country",
+                          label: "Repita a senha",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew"
-                        },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code"
-                        }
+                          placeholder: "Repita a senha"
+                        }                       
                       ]}
                     />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     <Button bsStyle="info" pullRight fill type="submit">
-                      Update Profile
+                      Salvar
                     </Button>
                     <div className="clearfix" />
                   </form>
