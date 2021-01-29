@@ -11,9 +11,11 @@ import br.com.rest.model.dao.AlunoDAO;
 import br.com.rest.model.dao.GrupoAlunoDAO;
 import br.com.rest.model.dao.PersistenceManager;
 import br.com.rest.model.dao.QuestionarioDAO;
+import br.com.rest.model.dto.EstiloDTO;
+import br.com.rest.model.dto.QuestaoDTO;
 import br.com.rest.model.dto.QuestionarioDTO;
 import br.com.rest.model.entity.AlunoEntity;
-import br.com.rest.model.entity.InformacaoPerfilEntity;
+import br.com.rest.model.entity.EstiloEntity;
 import br.com.rest.model.entity.QuestaoEntity;
 import br.com.rest.model.entity.QuestionarioEntity;
 
@@ -79,20 +81,36 @@ public class QuestionarioServices {
 	}
 	
 	public static QuestionarioEntity questionarioDtoToEntity(QuestionarioDTO quest, QuestionarioEntity questEntity) {
-		if(quest.getInformacoesPerfis() != null && quest.getInformacoesPerfis().size() > 0) {
-			for(InformacaoPerfilEntity info: quest.getInformacoesPerfis()) {
-				InformacaoPerfilEntity infoEntity = new InformacaoPerfilEntity();
-				infoEntity.setCaracteristicas(info.getCaracteristicas());
-				infoEntity.setSugestoes(info.getSugestoes());
-				infoEntity.setTipoPerfil(info.getTipoPerfil());
-				questEntity.addInformacoesPerfis(infoEntity);
+		/*if(quest.getEstilosDto() != null && quest.getEstilosDto().size() > 0) {
+			EstiloEntity estiloEntity;
+			for(EstiloDTO estilo: quest.getEstilosDto()) {
+				estiloEntity = new EstiloEntity();
+				estiloEntity.setCaracteristicas(estilo.getCaracteristicas());
+				estiloEntity.setSugestoes(estilo.getSugestoes());
+				estiloEntity.setNome(estilo.getNome());
+				estiloEntity.setId(estilo.getId());
+				questEntity.addEstilos(estiloEntity);
 			}
-		}		
+		}	*/	
 		if(quest.getQuestoes() != null && quest.getQuestoes().size() > 0) {
-			for(QuestaoEntity questao: quest.getQuestoes()) {
-				QuestaoEntity questaoEntity = new QuestaoEntity();
-				questaoEntity.setTexto(questao.getTexto());
-				questaoEntity.setTipoPerfil(questao.getTipoPerfil());
+			EstiloEntity estilo = null;
+			QuestaoEntity questaoEntity = null;
+			for(QuestaoDTO questaoDto: quest.getQuestoes()) {
+				questaoEntity = new QuestaoEntity();
+				questaoEntity.setIdQuestao(questaoDto.getIdQuestao());
+				questaoEntity.setTexto(questaoDto.getTexto());
+				if(questaoDto.getEstilo() != null) {
+					EstiloDTO estiloDto = questaoDto.getEstilo();
+					estilo = new EstiloEntity();
+					estilo.setCaracteristicas(estiloDto.getCaracteristicas());
+					estilo.setId(estiloDto.getId());
+					estilo.setNome(estiloDto.getNome());
+					estilo.setSugestoes(estiloDto.getSugestoes());
+				} else {
+					estilo = null;
+				}
+				
+				questaoEntity.setEstilo(estilo);
 				questEntity.addQuestao(questaoEntity);
 			}
 		}

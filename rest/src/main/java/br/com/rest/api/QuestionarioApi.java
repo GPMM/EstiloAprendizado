@@ -26,7 +26,7 @@ public class QuestionarioApi {
 	@POST
 	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String consultarQuestionariosPorGruposAluno(QuestionarioDTO quest) {
+	public String inserirQuestionariosPorGruposAluno(QuestionarioDTO quest) {
 		return QuestionarioServices.incluirQuestionario(quest).toString();
 	}
 

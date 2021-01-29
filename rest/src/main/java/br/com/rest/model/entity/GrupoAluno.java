@@ -29,12 +29,12 @@ public abstract class GrupoAluno  implements Serializable {
 	private Long id;
 		
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinTable(name = "REL_TURMA_QUESTIONARIO",
+	@JoinTable(name = "REL_GRUPO_QUESTIONARIO",
     joinColumns = @JoinColumn(name = "fk_turma"), inverseJoinColumns = @JoinColumn(name = "fk_questionario"))
 	private Set<QuestionarioEntity> questionarios;
 	
 	@ManyToMany
-	@JoinTable(name = "REL_TURMA_ALUNO",
+	@JoinTable(name = "REL_GRUPO_ALUNO",
 		joinColumns = { @JoinColumn(name = "fk_turma") },
 		inverseJoinColumns = { @JoinColumn(name = "fk_aluno") })
 	private List<AlunoEntity> alunos;

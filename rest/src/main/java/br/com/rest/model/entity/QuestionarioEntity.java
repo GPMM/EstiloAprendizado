@@ -45,7 +45,7 @@ public class QuestionarioEntity  implements Serializable {
 	
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "fk_questionario")
-	private List<InformacaoPerfilEntity> informacoesPerfis = new ArrayList<InformacaoPerfilEntity>();
+	private List<EstiloEntity> estilos = new ArrayList<EstiloEntity>();
 	
 	public String getNome() {
 		return nome;
@@ -79,16 +79,16 @@ public class QuestionarioEntity  implements Serializable {
 		return idQuestionario;
 	}
 
-	public List<InformacaoPerfilEntity> getInformacoesPerfis() {
-		return informacoesPerfis;
+	public List<EstiloEntity> getEstilos() {
+		return estilos;
 	}
 
-	public void setInformacoesPerfis(List<InformacaoPerfilEntity> informacoesPerfis) {
-		this.informacoesPerfis = informacoesPerfis;
+	public void setEstilos(List<EstiloEntity> estilos) {
+		this.estilos = estilos;
 	}
 	
-	public void addInformacoesPerfis(InformacaoPerfilEntity informacoesPerfil) {
-		this.informacoesPerfis.add(informacoesPerfil);
+	public void addEstilos(EstiloEntity estilos) {
+		this.estilos.add(estilos);
 	}	
 	
 	public void addQuestao(QuestaoEntity questao) {

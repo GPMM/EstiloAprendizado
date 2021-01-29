@@ -4,14 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import br.com.rest.model.enumentity.TiposPerfilEnum;
 
 @Entity(name = "Questao")
 @Table(name = "QUESTAO")
@@ -27,8 +25,9 @@ public class QuestaoEntity  implements Serializable {
 	@Column
 	private String texto;
 	
-	@Enumerated(EnumType.STRING)
-	private TiposPerfilEnum tipoPerfil;
+	@ManyToOne
+	@JoinColumn(name = "fk_estilo")
+	private EstiloEntity estiloQuestao;
 	
 	public Long getIdQuestao() {
 		return idQuestao;
@@ -46,12 +45,12 @@ public class QuestaoEntity  implements Serializable {
 		this.texto = texto;
 	}
 
-	public TiposPerfilEnum getTipoPerfil() {
-		return tipoPerfil;
+	public EstiloEntity getEstilo() {
+		return estiloQuestao;
 	}
 
-	public void setTipoPerfil(TiposPerfilEnum tipoPerfil) {
-		this.tipoPerfil = tipoPerfil;
+	public void setEstilo(EstiloEntity estiloQuestao) {
+		this.estiloQuestao = estiloQuestao;
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class QuestaoEntity  implements Serializable {
 
 	@Override
 	public String toString() {
-		return "QuestaoEntity [idQuestao=" + idQuestao + ", texto=" + texto + ", tipoPerfil=" + tipoPerfil + "]";
+		return "QuestaoEntity [idQuestao=" + idQuestao + ", texto=" + texto + ", estiloQuestao=" + estiloQuestao + "]";
 	}
 	
 	

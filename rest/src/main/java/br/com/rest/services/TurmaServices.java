@@ -1,12 +1,9 @@
 package br.com.rest.services;
 
-import java.util.List;
-
 import javax.persistence.NoResultException;
 
-import br.com.rest.model.dao.TurmaDAO;
 import br.com.rest.model.dao.PersistenceManager;
-import br.com.rest.model.entity.ProfessorEntity;
+import br.com.rest.model.dao.TurmaDAO;
 import br.com.rest.model.entity.TurmaEntity;
 
 public class TurmaServices {

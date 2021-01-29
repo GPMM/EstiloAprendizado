@@ -1,17 +1,10 @@
 package br.com.rest.model.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,10 +19,11 @@ public class TurmaEntity extends GrupoAluno implements Serializable {
 	@Column(unique=true)
 	private String codigo;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+/*	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "REL_TURMA_QUESTIONARIO",
     joinColumns = @JoinColumn(name = "fk_turma"), inverseJoinColumns = @JoinColumn(name = "fk_questionario"))
-	private Set<QuestionarioEntity> questionarios;
+	private Set<QuestionarioEntity> questionarios;*///TODO ver se funciona sem esse e so com o do grupoaluno
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_professor")

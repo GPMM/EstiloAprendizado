@@ -2,7 +2,6 @@ package br.com.rest.model.dao;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.TypedQuery;
@@ -12,8 +11,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.com.rest.model.entity.AlunoEntity_;
-import br.com.rest.model.entity.EstiloAlunoEntity;
 import br.com.rest.model.entity.EstiloAlunoEntity_;
+import br.com.rest.model.entity.EstiloAlunoREL;
 import br.com.rest.model.entity.GrupoAluno;
 import br.com.rest.model.entity.GrupoAluno_;
 import br.com.rest.model.entity.QuestionarioEntity_;
@@ -21,12 +20,12 @@ import br.com.rest.model.entity.TurmaEntity;
 import br.com.rest.model.entity.TurmaEntity_;
 import br.com.rest.services.TurmaServices;
 
-public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
+public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoREL>{
 	
 	private static EstiloAlunoDAO instance = null;
 	
 	private EstiloAlunoDAO() {
-		super(EstiloAlunoEntity.class, PersistenceManager.getEntityManager());
+		super(EstiloAlunoREL.class, PersistenceManager.getEntityManager());
 	}
 	
 	public synchronized static EstiloAlunoDAO getInstance() {
@@ -36,12 +35,12 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		return instance;
 	}
 	
-	public Set<EstiloAlunoEntity> dynamicQueryFiltro(Long idQuestionario, String matricula, Date startDate, Date endDate, String nivel, String turma) {
+	public Set<EstiloAlunoREL> dynamicQueryFiltro(Long idQuestionario, String matricula, Date startDate, Date endDate, String nivel, String turma) {
 		em.clear();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		
-		CriteriaQuery<EstiloAlunoEntity> query = cb.createQuery(EstiloAlunoEntity.class);
-		Root<EstiloAlunoEntity> rootEstilo = query.from(EstiloAlunoEntity.class);
+		CriteriaQuery<EstiloAlunoREL> query = cb.createQuery(EstiloAlunoREL.class);
+		Root<EstiloAlunoREL> rootEstilo = query.from(EstiloAlunoREL.class);
 		Root<GrupoAluno> rootGrupo = query.from(GrupoAluno.class);
 		//if Turna != null, colocar um where idTurma do questionario = id turma
 		
@@ -79,8 +78,8 @@ public class EstiloAlunoDAO extends GenericDAO<EstiloAlunoEntity>{
 		}
 		query.where(pred);
 		
-		TypedQuery<EstiloAlunoEntity> typedQuery = em.createQuery(query);
-		Set<EstiloAlunoEntity> retorno = new HashSet<EstiloAlunoEntity>();
+		TypedQuery<EstiloAlunoREL> typedQuery = em.createQuery(query);
+		Set<EstiloAlunoREL> retorno = new HashSet<EstiloAlunoREL>();
 		if(matricula != null) {
 			retorno.add(typedQuery.getSingleResult());
 		} else {

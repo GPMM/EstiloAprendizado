@@ -8,7 +8,9 @@ import javax.persistence.NoResultException;
 
 import br.com.rest.model.dao.EstiloAlunoDAO;
 import br.com.rest.model.dto.EstiloAlunoDTO;
-import br.com.rest.model.entity.EstiloAlunoEntity;
+import br.com.rest.model.dto.EstiloDTO;
+import br.com.rest.model.entity.EstiloAlunoREL;
+import br.com.rest.model.entity.EstiloEntity;
 
 public class EstiloAlunoServices {
 
@@ -16,12 +18,12 @@ public class EstiloAlunoServices {
 
 	public static Set<EstiloAlunoDTO> consultar(Long idQuestionario, String matricula, Date startDate, Date endDate, String nivel,
 			String turma) {
-		Set<EstiloAlunoEntity> resumoEstiloAlunos = null;
+		Set<EstiloAlunoREL> resumoEstiloAlunos = null;
 		Set<EstiloAlunoDTO> resumoEstiloAlunosDTO = null;
 		try {
 			resumoEstiloAlunos = estiloAlunoDao.dynamicQueryFiltro(idQuestionario, matricula, startDate, endDate, nivel, turma);
 			resumoEstiloAlunosDTO = new HashSet<EstiloAlunoDTO>();
-			for (EstiloAlunoEntity estiloAluno : resumoEstiloAlunos) {
+			for (EstiloAlunoREL estiloAluno : resumoEstiloAlunos) {
 				resumoEstiloAlunosDTO.add(estiloAlunoToDto(estiloAluno));
 			}
 
@@ -32,29 +34,28 @@ public class EstiloAlunoServices {
 		}
 	}
 
-	public static EstiloAlunoDTO estiloAlunoToDto(EstiloAlunoEntity estiloAluno) {
-		EstiloAlunoDTO estiloDto = new EstiloAlunoDTO();
+	public static EstiloAlunoDTO estiloAlunoToDto(EstiloAlunoREL estiloAluno) {
+		EstiloAlunoDTO estiloAlunoDto = new EstiloAlunoDTO();
 
 		if (estiloAluno.getAluno() != null) {
-			estiloDto.setIdAluno(estiloAluno.getAluno().getId());
-			estiloDto.setMatriculaAluno(estiloAluno.getAluno().getMatricula());
-			estiloDto.setNomeAluno(estiloAluno.getAluno().getNome());
+			estiloAlunoDto.setIdAluno(estiloAluno.getAluno().getId());
+			estiloAlunoDto.setMatriculaAluno(estiloAluno.getAluno().getMatricula());
+			estiloAlunoDto.setNomeAluno(estiloAluno.getAluno().getNome());
 		}
 		
 		if(estiloAluno.getQuestionario() != null) {
-			estiloDto.setIdQuestionario(estiloAluno.getQuestionario().getIdQuestionario());
-			estiloDto.setNomeQuestionario(estiloAluno.getQuestionario().getNome());
-			estiloDto.setInfoPerfis(estiloAluno.getQuestionario().getInformacoesPerfis());
+			estiloAlunoDto.setIdQuestionario(estiloAluno.getQuestionario().getIdQuestionario());
+			estiloAlunoDto.setNomeQuestionario(estiloAluno.getQuestionario().getNome());
+			EstiloDTO estiloDto;
+			for(EstiloEntity estiloEntity : estiloAluno.getQuestionario().getEstilos()) {
+				estiloDto = EstiloServices.entityToDto(estiloEntity);
+				estiloAlunoDto.addEstilo(estiloDto);
+			}
 		}
 		
-		estiloDto.setDataRealizado(estiloAluno.getDataRealizado());
-		estiloDto.setIdPerfil(estiloAluno.getIdPerfil());
-		estiloDto.setPerfilAtivo(estiloAluno.getPerfilAtivo());
-		estiloDto.setPerfilTeorico(estiloAluno.getPerfilTeorico());
-		estiloDto.setPerfilReflexivo(estiloAluno.getPerfilReflexivo());
-		estiloDto.setPerfilPragmatico(estiloAluno.getPerfilPragmatico());
+		estiloAlunoDto.setDataRealizado(estiloAluno.getDataRealizado());
+		estiloAlunoDto.setIdPerfil(estiloAluno.getIdPerfil());
 
-		return estiloDto;
-
+		return estiloAlunoDto;
 	}
 }
